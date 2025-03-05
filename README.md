@@ -7,4 +7,5 @@
 
 ## Execute flash close
 > cd flash-close-bitget
+> \
 > bash flash_close.sh
