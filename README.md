@@ -1,7 +1,7 @@
 # Flash Close Bitget
 
 ## Install flash close
-> git clone https://github.com/Algolaxy/flash-close-bitget.git
+> git clone https://YOUR_USERNAME:YOUR_TOKEN@github.com/Algolaxy/flash-close-bitget.git
 > \
 > cd flash-close-bitget
 > \
