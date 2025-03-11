@@ -172,9 +172,10 @@ class BitgetExchange:
 
 def get_bitget_api_credentials() -> dict:
     try:
-        account = ACCOUNTS.get("bitget1", {})
+        key_name = "bitget1"
+        account = ACCOUNTS.get(key_name, {})
         if not account or not account.get("public_api") or not account.get("secret_api"):
-            raise Exception("Invalid API credentials for bitget1 in secret.py")
+            raise Exception(f"Invalid API credentials for {key_name} in secret.py")
             
         return {
             "apiKey": account["public_api"],
