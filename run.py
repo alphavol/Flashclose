@@ -14,7 +14,6 @@ sys.path.append(live_tools_path)
 
 from secret import ACCOUNTS
 
-
 MAX_RETRIES = 5
 BASE_DELAY = 1 
 
@@ -82,7 +81,6 @@ class BitgetExchange:
         try:
             await self._exchange.close_position(symbol, side=side)
         except Exception as e:
-            print(f"Failed to close {side} position for {symbol}: {str(e)}")
             raise
 
     @retry_async
@@ -176,7 +174,7 @@ def get_bitget_api_credentials() -> dict:
     try:
         account = ACCOUNTS.get("bitget1", {})
         if not account or not account.get("public_api") or not account.get("secret_api"):
-            raise Exception("API credentials not found for bitget1 in secret.py")
+            raise Exception("Invalid API credentials for bitget1 in secret.py")
             
         return {
             "apiKey": account["public_api"],
@@ -207,6 +205,7 @@ async def main():
                 print(f" > Found {len(positions)} open positions to close")
                 
                 for position in positions:
+                    print("\n >>>>>> Closing position: ", position)
                     symbol = position['symbol']
                     side = position['side']
                     contracts = position['contracts']
@@ -215,7 +214,7 @@ async def main():
                         await exchange.flash_close_position(symbol, side)
                         print(f" > Closed {side} position for {symbol} ({contracts} contracts)")
                     except Exception as e:
-                        print(f" /!/ Error closing position for {symbol}: {str(e)}")
+                        print(f"\n /!/ Error closing position for {symbol}: {str(e)}. \n The position details are: {position}")
             
             # Step 2: Cancel all trigger orders
             print("\nFetching trigger orders...")
